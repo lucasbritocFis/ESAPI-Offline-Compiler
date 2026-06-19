@@ -14,7 +14,7 @@ Compile Varian Eclipse scripts without Visual Studio. Just a .bat file and csc.e
 
 ## 🤔 Why does this exist?
 
-Most Medical Physicists assume they need a $10,000 Visual Studio license to script in Eclipse. **You don't.**
+Most Medical Physicists assume they need a Visual Studio license to script in Eclipse. **You don't.**
 
 Windows ships with a built-in C# compiler (`csc.exe`). This repo is a ready-to-use, standalone template that compiles any `.cs` file into an ESAPI `.dll` in **under 2 seconds** – no IDE required.
 
