@@ -3,11 +3,21 @@ setlocal
 
 REM ==========================================================================
 REM  build.bat  —  Compiles an ESAPI script into a .dll without Visual Studio.
+REM
+REM  Usage:
+REM    scripts\build.bat                  -> compiles the bundled example
+REM    scripts\build.bat MyScript.cs      -> compiles your own .cs file
 REM ==========================================================================
 
 set "ESAPI_DIR=C:\Program Files (x86)\Varian\RTM\16.1\esapi\API"
-set "SRC=examples\HelloEsapi.cs"
-set "OUT=HelloEsapi.esapi.dll"
+
+if "%~1"=="" (
+    set "SRC=examples\HelloEsapi.cs"
+) else (
+    set "SRC=%~1"
+)
+set "OUT=%~n1.esapi.dll"
+if "%~1"=="" set "OUT=HelloEsapi.esapi.dll"
 
 set "API=%ESAPI_DIR%\VMS.TPS.Common.Model.API.dll"
 set "TYPES=%ESAPI_DIR%\VMS.TPS.Common.Model.Types.dll"
@@ -40,8 +50,10 @@ if not exist "%TYPES%" (
 )
 
 if not exist "%SRC%" (
-    echo ERROR: Source file "%SRC%" not found in the current folder.
-    echo Place your .cs file in the same directory as this script.
+    echo ERROR: Source file "%SRC%" not found.
+    echo Either place your .cs file in the repo root and run:
+    echo   scripts\build.bat YourFile.cs
+    echo or run scripts\build.bat with no arguments to compile the bundled example.
     pause
     exit /b 1
 )
@@ -70,7 +82,7 @@ if errorlevel 1 (
         echo You can now register it in Eclipse (Scripts ^> Administer Scripts).
     ) else (
         echo.
-        echo Build FAILED – no DLL was produced.
+        echo Build FAILED - no DLL was produced.
     )
 )
 
